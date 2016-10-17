@@ -26,7 +26,7 @@ gulp.task('minify-css', function() {
 // Minify HTML
 gulp.task('minify-html', function() {
     return gulp.src('app/index.max.html')
-        .pipe(gulpIf('*.html', htmlmin({collapseWhitespace: true})))
+        .pipe(gulpIf('*.html', htmlmin({collapseWhitespace: true, removeComments: true})))
         .pipe(rename('index.html'))
         .pipe(gulp.dest('dist/'))
 });
