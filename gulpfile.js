@@ -7,28 +7,28 @@ var cssnano = require('gulp-cssnano');
 var htmlmin = require('gulp-htmlmin');
 var browserSync = require('browser-sync').create();
 
-// Minify Javascript
+// Minify javascript and rename it
 gulp.task('minify-js', function() {
-    return gulp.src('app/index.js')
-        .pipe(gulpIf('*.js', uglify()))
-        .pipe(rename('index.min.js'))
+    return gulp.src('app/**/*.js')
+        .pipe(uglify())
+        .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('dist/'))
 });
 
-// Minify CSS
+// Minify css and rename it
 gulp.task('minify-css', function() {
-    return gulp.src('app/css/style.css')
-        .pipe(gulpIf('*.css', cssnano()))
-        .pipe(rename('style.min.css'))
-        .pipe(gulp.dest('dist/css/'))
+    return gulp.src('app/**/*.css')
+        .pipe(cssnano())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('dist/'))
 });
 
-// Minify HTML
+// Minify html and rename it
 gulp.task('minify-html', function() {
-    return gulp.src('app/index.max.html')
-        .pipe(gulpIf('*.html', htmlmin({collapseWhitespace: true, removeComments: true})))
-        .pipe(rename('index.html'))
-        .pipe(gulp.dest('dist/'))
+    return gulp.src('app/**/*.html')
+        .pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
+        .pipe(gulpIf('!index.max.html', rename({suffix: '.min'}), rename("index.html")))
+        .pipe(gulp.dest('dist'))
 });
 
 // Sync with browser
@@ -40,9 +40,7 @@ gulp.task('browserSync', function() {
     })
 })
 
-// Run gulp tasks whenever a file is saved
+// Reload and minify files whenever a file is saved
 gulp.task('watch', ['browserSync', 'minify-js', 'minify-css', 'minify-html'], function() {
-    gulp.watch('app/index.js', ['minify-js', browserSync.reload]);
-    gulp.watch('app/css/style.css', ['minify-css', browserSync.reload]);
-    gulp.watch('app/index.max.html', ['minify-html', browserSync.reload]);
+    gulp.watch('app/**/*.*', ['minify-js', 'minify-css', 'minify-html', browserSync.reload]);
 });
