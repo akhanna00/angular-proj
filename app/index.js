@@ -1,32 +1,29 @@
 // Create Angular Module
 var myApp = angular.module("myApp", ["ngRoute"]);
 
-// Create Angular Controller
-myApp.controller("mainController", ["$scope", function($scope) {
-	$scope.message = "Hello World";
-}]); 
-
 // Configure routes
-myApp.config(["$routeProvider", function($routeProvider) {
+myApp.config(["$routeProvider", "$locationProvider", function($routeProvider,  $locationProvider) {
 	$routeProvider
 
 		// route for home page
 		.when('/', {
-			templateUrl : 'pages/home.html',
+			templateUrl : 'pages/home.min.html',
 			controller : 'mainController'
 		})
 
-		// route for about pahe
+		// route for about page
 		.when('/about', {
-			templateUrl : 'pages/about.html',
+			templateUrl : 'pages/about.min.html',
 			controller : 'aboutController'
 		})
 
-		// route for contact
+		// route for contact page
 		.when('/contact', {
-			templateUrl : "pages/contact.html",
+			templateUrl : "pages/contact.min.html",
 			controller : "contactController"
 		});
+
+		$locationProvider.html5Mode(true);
 }]);
 
 myApp.controller('mainController', ["$scope", function($scope) {
