@@ -5,6 +5,7 @@ var gulpIf = require('gulp-if');
 var rename = require('gulp-rename')
 var cssnano = require('gulp-cssnano');
 var htmlmin = require('gulp-htmlmin');
+var ghPages = require('gulp-gh-pages');
 var browserSync = require('browser-sync').create();
 
 // Minify javascript and rename it
@@ -38,7 +39,12 @@ gulp.task('browserSync', function() {
             baseDir: './dist'
         },
     })
-})
+});
+
+gulp.task('deploy', function() {
+  return gulp.src('./dist/**/*')
+    .pipe(ghPages());
+});
 
 // Reload and minify files whenever a file is saved
 gulp.task('watch', ['browserSync', 'minify-js', 'minify-css', 'minify-html'], function() {
