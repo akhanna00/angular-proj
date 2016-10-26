@@ -4,12 +4,12 @@ var myApp = angular.module("myApp", ["ngRoute"]);
 // Configure routes
 myApp.config(["$routeProvider", function($routeProvider) {
 	$routeProvider
-
+		
 		// route for home page
 		.when('/', {
 			templateUrl : 'pages/home.min.html',
 			controller : 'mainController'
-		})
+		}) 
 
 		// route for about page
 		.when('/about', {
@@ -26,7 +26,7 @@ myApp.config(["$routeProvider", function($routeProvider) {
 
 myApp.controller('mainController', ["$scope", function($scope) {
 	$scope.message = "Main page";
-}]);
+}]); 
 
 myApp.controller('aboutController', ["$scope", function($scope) {
 	$scope.message = "About me";
