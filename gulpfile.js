@@ -18,10 +18,10 @@ gulp.task('minify-js', function() {
 
 // Minify css and rename it
 gulp.task('minify-css', function() {
-    return gulp.src('app/**/*.css')
+    return gulp.src('app/css/style.css')
         .pipe(cssnano())
         .pipe(rename({suffix: '.min'}))
-        .pipe(gulp.dest('dist/'))
+        .pipe(gulp.dest('dist/css'))
 });
 
 // Minify html and rename it
